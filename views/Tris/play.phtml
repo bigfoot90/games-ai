@@ -1,0 +1,77 @@
+<?php $this->layout('layout', ['title' => 'Tris']) ?>
+
+<h1>Tris</h1>
+
+<form method="post">
+    <input name="turn" type="hidden" value="<?= $turn->value ?>"/>
+    <table id="board" player="<?= $turn->value ?>">
+        <?php foreach($board as $position => $cell): ?>
+            <?php if ($position % 3 === 0): ?><tr><?php endif ?>
+                <?php if ($cell): ?>
+                    <td player="<?= $cell->value ?>"></td>
+                <?php else: ?>
+                    <td><input name="move" type="radio" value="<?= $position ?>"/></td>
+                <?php endif ?>
+            <?php if ($position % 3 === 2): ?></tr><?php endif ?>
+        <?php endforeach ?>
+    </table>
+</form>
+
+<?php $this->start('css') ?>
+    <style>
+        #board {
+            margin: 0 auto;
+            width: 600px;
+            height: 600px;
+        }
+        #board td {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 98px;
+            text-align: center;
+            width: 33%;
+            height: 33%;
+        }
+        #board td input {
+            display: none;
+        }
+        #board td input:checked:before {
+            content: "O";
+            color: blue;
+        }
+        #board td:not([player]),
+        #board td:not([player]) {
+            cursor: pointer;
+        }
+        #board[player="X"] td:not([player]):hover:before,
+        #board td[player="X"]:before {
+            content: "X";
+            color: red;
+        }
+        #board[player="O"] td:not([player]):hover:before,
+        #board td[player="O"]:before {
+            content: "O";
+            color: blue;
+        }
+        #board tr:first-child td {
+            border-bottom: solid 4px black;
+        }
+        #board td:first-child {
+            border-right: solid 4px black;
+        }
+        #board tr:last-child td {
+            border-top: solid 4px black;
+        }
+        #board td:last-child {
+            border-left: solid 4px black;
+        }
+    </style>
+<?php $this->stop() ?>
+
+<?php $this->start('js') ?>
+    <script>
+        let form = document.querySelector('form');
+        document.querySelectorAll('#board td').forEach(td => td.onclick = () => {
+          td.querySelector('input').checked = true; form.submit()
+        })
+    </script>
+<?php $this->stop() ?>

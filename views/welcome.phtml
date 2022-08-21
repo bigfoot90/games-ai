@@ -1,0 +1,23 @@
+<?php $this->layout('layout', ['title' => 'Welcome']) ?>
+
+<h1>Select a game</h1>
+
+<div class="container">
+    <button onclick="location = '/maze'" disabled>Maze</button>
+    <button onclick="location = '/tris'">Tris</button>
+    <button onclick="location = '/forza4'" disabled>Forza 4</button>
+    <button onclick="location = '/ocr'" disabled>OCR</button>
+</div>
+
+<?php $this->start('css') ?>
+    <style>
+        .container {
+            margin: 0 auto;
+            text-align: center;
+        }
+        button {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+<?php $this->stop() ?>
